@@ -8,7 +8,7 @@ function User({ data }) {
       <th scope="row">{id}</th>
 
       <td>
-        <Link to={`/userDataWebApp/users/${id}`}>{first_name}</Link>
+        <Link to={`/userDataWebApp/${id}`}>{first_name}</Link>
       </td>
 
       <td>{last_name}</td>

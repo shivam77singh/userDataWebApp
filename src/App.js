@@ -44,7 +44,7 @@ function App() {
         <h3 className="text-center">Loading...</h3>
       ) : (
         <Switch>
-          <Route path="/userDataWebApp/users" exact>
+          <Route path="/userDataWebApp" exact>
             <UsersTable
               currentUsers={currentUsers}
               setPageNumber={setPageNumber}
@@ -52,7 +52,7 @@ function App() {
               currentPage={currentPage}
             />
           </Route>
-          <Route path="/userDataWebApp/users/:userId">
+          <Route path="/userDataWebApp/:userId">
             <UserDetails currentUsers={currentUsers} />
           </Route>
         </Switch>

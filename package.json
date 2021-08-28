@@ -1,6 +1,6 @@
 {
   "name": "user-app",
-  "homepage":"https://shivam77singh.github.io/userDataWebApp/users",
+  "homepage":"https://shivam77singh.github.io/userDataWebApp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
