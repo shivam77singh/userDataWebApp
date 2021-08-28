@@ -12,7 +12,7 @@ function UserDetails({ currentUsers }) {
         <div className="container mt-5">
           <ul class="list-group">
             <li class="list-group-item active">
-              <Link to="/userDataWebApp">
+              <Link to="/users">
                 <span className="mr-5" style={{ color: "white" }}>
                   <i class="fas fa-arrow-left"></i>
                 </span>
