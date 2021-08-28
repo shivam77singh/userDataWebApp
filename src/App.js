@@ -1,24 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
+import UsersTable from "./components/UsersTable";
+import UserDetails from "./components/UserDetails";
+import "../src/style/app.css";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [usersData, setUsersData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 10;
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      setIsLoading(true); //intital loading of data
+      axios
+        .get(
+          "https://datapeace-storage.s3-us-west-2.amazonaws.com/dummy_data/users.json"
+        )
+        .then((res) => {
+          setUsersData(res.data);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchUserData(); //funcion to fetch data from api
+  }, []);
+
+  //Get current Users
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = usersData.slice(indexOfFirstUser, indexOfLastUser);
+  const totalUsers = usersData.length;
+
+  //setPageNumber
+  const setPageNumber = (number) => {
+    setCurrentPage(number);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {isLoading ? (
+        <h3 className="text-center">Loading...</h3>
+      ) : (
+        <Switch>
+          <Route path="/users" exact>
+            <UsersTable
+              currentUsers={currentUsers}
+              setPageNumber={setPageNumber}
+              totalUsers={totalUsers}
+              currentPage={currentPage}
+            />
+          </Route>
+          <Route path="/users/:userId">
+            <UserDetails currentUsers={currentUsers} />
+          </Route>
+        </Switch>
+      )}
+    </Router>
   );
 }
 
