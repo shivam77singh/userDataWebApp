@@ -5,7 +5,7 @@ function User({ data }) {
   const { first_name, last_name, age, web, email, id } = data;
   return (
     <tr style={{ cursor: "pointer" }}>
-      <th scope="row">{id}</th>
+      {/* <th scope="row">{id}</th> */}
 
       <td>
         <Link to={`/userDataWebApp/${id}`}>{first_name}</Link>

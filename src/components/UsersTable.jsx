@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 
 function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
   const [isSort, setIsSort] = useState({
-    id: 0,
+    id: 1,
     first_name: 0,
     last_name: 0,
     age: 0,
@@ -30,13 +30,13 @@ function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
   const setSortedData = () => {
     const temp = Object.assign([], tempUsers);
     for (let field in isSort) {
-      if (isSort[field] == -1) {
+      if (isSort[field] == 1) {
         temp.sort((a, b) => {
           if (a[field] < b[field]) return -1;
           else if (a[field] > b[field]) return 1;
           return 0;
         });
-      } else if (isSort[field] == 1) {
+      } else if (isSort[field] == -1) {
         temp.sort((a, b) => {
           if (a[field] < b[field]) return 1;
           else if (a[field] > b[field]) return -1;
@@ -81,40 +81,76 @@ function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
         <table className="table table-striped table-hover">
           <thead>
             <tr>
-              <th scope="col">
+              {/* <th scope="col">
                 #{" "}
                 <span onClick={() => handleChange({ type: "id" })}>
-                  <i className="fas fa-sort"></i>
+                  {isSort.id == 0 ? (
+                    <i className="fas fa-sort"></i>
+                  ) : isSort.id == 1 ? (
+                    <i class="fas fa-sort-up"></i>
+                  ) : (
+                    <i class="fas fa-sort-down"></i>
+                  )}
                 </span>
-              </th>
+              </th> */}
               <th scope="col">
                 First Name{" "}
                 <span onClick={() => handleChange({ type: "first_name" })}>
-                  <i className="fas fa-sort"></i>
+                  {isSort.first_name == 0 ? (
+                    <i className="fas fa-sort"></i>
+                  ) : isSort.first_name == 1 ? (
+                    <i class="fas fa-sort-up"></i>
+                  ) : (
+                    <i class="fas fa-sort-down"></i>
+                  )}
                 </span>
               </th>
               <th scope="col">
                 Last Name{" "}
                 <span onClick={() => handleChange({ type: "last_name" })}>
-                  <i className="fas fa-sort"></i>
+                  {isSort.last_name == 0 ? (
+                    <i className="fas fa-sort"></i>
+                  ) : isSort.last_name == 1 ? (
+                    <i class="fas fa-sort-up"></i>
+                  ) : (
+                    <i class="fas fa-sort-down"></i>
+                  )}
                 </span>
               </th>
               <th scope="col">
                 Age{" "}
                 <span onClick={() => handleChange({ type: "age" })}>
-                  <i className="fas fa-sort"></i>
+                  {isSort.age == 0 ? (
+                    <i className="fas fa-sort"></i>
+                  ) : isSort.age == 1 ? (
+                    <i class="fas fa-sort-up"></i>
+                  ) : (
+                    <i class="fas fa-sort-down"></i>
+                  )}
                 </span>
               </th>
               <th scope="col">
                 Email{" "}
                 <span onClick={() => handleChange({ type: "email" })}>
-                  <i className="fas fa-sort"></i>
+                  {isSort.email == 0 ? (
+                    <i className="fas fa-sort"></i>
+                  ) : isSort.email == 1 ? (
+                    <i class="fas fa-sort-up"></i>
+                  ) : (
+                    <i class="fas fa-sort-down"></i>
+                  )}
                 </span>
               </th>
               <th scope="col">
                 Web{" "}
                 <span onClick={() => handleChange({ type: "web" })}>
-                  <i className="fas fa-sort"></i>
+                  {isSort.web == 0 ? (
+                    <i className="fas fa-sort"></i>
+                  ) : isSort.web == 1 ? (
+                    <i class="fas fa-sort-up"></i>
+                  ) : (
+                    <i class="fas fa-sort-down"></i>
+                  )}
                 </span>
               </th>
             </tr>
