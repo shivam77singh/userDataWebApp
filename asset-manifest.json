@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/userDataWebApp/static/css/main.10822ab7.chunk.css",
-    "main.js": "/userDataWebApp/static/js/main.20efc123.chunk.js",
-    "main.js.map": "/userDataWebApp/static/js/main.20efc123.chunk.js.map",
+    "main.js": "/userDataWebApp/static/js/main.ad2d18b6.chunk.js",
+    "main.js.map": "/userDataWebApp/static/js/main.ad2d18b6.chunk.js.map",
     "runtime-main.js": "/userDataWebApp/static/js/runtime-main.e7904746.js",
     "runtime-main.js.map": "/userDataWebApp/static/js/runtime-main.e7904746.js.map",
-    "static/js/2.378b68b1.chunk.js": "/userDataWebApp/static/js/2.378b68b1.chunk.js",
-    "static/js/2.378b68b1.chunk.js.map": "/userDataWebApp/static/js/2.378b68b1.chunk.js.map",
+    "static/js/2.a5c214be.chunk.js": "/userDataWebApp/static/js/2.a5c214be.chunk.js",
+    "static/js/2.a5c214be.chunk.js.map": "/userDataWebApp/static/js/2.a5c214be.chunk.js.map",
     "index.html": "/userDataWebApp/index.html",
     "static/css/main.10822ab7.chunk.css.map": "/userDataWebApp/static/css/main.10822ab7.chunk.css.map",
-    "static/js/2.378b68b1.chunk.js.LICENSE.txt": "/userDataWebApp/static/js/2.378b68b1.chunk.js.LICENSE.txt"
+    "static/js/2.a5c214be.chunk.js.LICENSE.txt": "/userDataWebApp/static/js/2.a5c214be.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e7904746.js",
-    "static/js/2.378b68b1.chunk.js",
+    "static/js/2.a5c214be.chunk.js",
     "static/css/main.10822ab7.chunk.css",
-    "static/js/main.20efc123.chunk.js"
+    "static/js/main.ad2d18b6.chunk.js"
   ]
 }
