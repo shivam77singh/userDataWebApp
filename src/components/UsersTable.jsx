@@ -111,7 +111,7 @@ function UsersTable({
         <table className="table table-striped table-hover">
           <thead>
             <tr>
-              <th scope="col">
+              <th scope="col" style={{ minWidth: "120px" }}>
                 First Name{" "}
                 <span onClick={() => handleSort({ type: "first_name" })}>
                   {isSort.first_name == 0 ? (
@@ -123,7 +123,7 @@ function UsersTable({
                   )}
                 </span>
               </th>
-              <th scope="col">
+              <th scope="col" style={{ minWidth: "120px" }}>
                 Last Name{" "}
                 <span onClick={() => handleSort({ type: "last_name" })}>
                   {isSort.last_name == 0 ? (
@@ -135,7 +135,7 @@ function UsersTable({
                   )}
                 </span>
               </th>
-              <th scope="col">
+              <th scope="col" style={{ minWidth: "110px" }}>
                 Age{" "}
                 <span onClick={() => handleSort({ type: "age" })}>
                   {isSort.age == 0 ? (
@@ -147,7 +147,7 @@ function UsersTable({
                   )}
                 </span>
               </th>
-              <th scope="col">
+              <th scope="col" style={{ minWidth: "110px" }}>
                 Email{" "}
                 <span onClick={() => handleSort({ type: "email" })}>
                   {isSort.email == 0 ? (
@@ -159,7 +159,7 @@ function UsersTable({
                   )}
                 </span>
               </th>
-              <th scope="col">
+              <th scope="col" style={{ minWidth: "110px" }}>
                 Web{" "}
                 <span onClick={() => handleSort({ type: "web" })}>
                   {isSort.web == 0 ? (
