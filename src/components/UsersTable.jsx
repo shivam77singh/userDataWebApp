@@ -25,7 +25,7 @@ function UsersTable({
       email: 0,
       web: 0,
     });
-  }, [totalUsers]);
+  }, [totalUsers, currentPage]);
 
   //<<<<==============================SET TO INITIAL STATE WHEN TOTAL USERS CHANGES ACCORDING TO THE SEARCHED VALUE====================>>>>
 
