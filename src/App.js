@@ -9,11 +9,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [usersData, setUsersData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchedUsers, setSearchedUsers] = useState([]);
+  const [searchedInputValue, setSearchedInputValue] = useState("");
   const usersPerPage = 10;
 
+  //<<<=========================================FETCHES DATA FROM THA API===================================>>>
   useEffect(() => {
     const fetchUserData = async () => {
-      setIsLoading(true); //intital loading of data
+      setIsLoading(true);
       axios
         .get(
           "https://datapeace-storage.s3-us-west-2.amazonaws.com/dummy_data/users.json"
@@ -21,22 +24,43 @@ function App() {
         .then((res) => {
           setUsersData(res.data);
           setIsLoading(false);
+          setSearchedUsers(res.data);
         })
         .catch((err) => console.log(err));
     };
-    fetchUserData(); //funcion to fetch data from api
+    fetchUserData();
   }, []);
+  //<<<=========================================FETCHES DATA FROM THA API===================================>>>
 
   //Get current Users
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = usersData.slice(indexOfFirstUser, indexOfLastUser);
-  const totalUsers = usersData.length;
+  const currentUsers = searchedUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const totalUsers = searchedUsers.length;
 
   //setPageNumber
   const setPageNumber = (number) => {
     setCurrentPage(number);
   };
+
+  //<<<=========================================HANDLES SEARCHED USERS DATA===================================>>>
+
+  //handle input change
+  const handleInputChange = (val) => {
+    setSearchedInputValue(val);
+  };
+  useEffect(() => {
+    setSearchedUsers(
+      usersData.filter((user) => {
+        return (
+          user.first_name.toLowerCase().startsWith(searchedInputValue) ||
+          user.last_name.toLowerCase().startsWith(searchedInputValue)
+        );
+      })
+    );
+    if (searchedInputValue) setCurrentPage(1);
+  }, [searchedInputValue]);
+  //<<<=========================================HANDLES SEARCHED USERS DATA===================================>>>
 
   return (
     <Router>
@@ -50,10 +74,11 @@ function App() {
               setPageNumber={setPageNumber}
               totalUsers={totalUsers}
               currentPage={currentPage}
+              handleInputChange={handleInputChange}
             />
           </Route>
           <Route path="/userDataWebApp/:userId">
-            <UserDetails currentUsers={currentUsers} />
+            <UserDetails usersData={usersData} />
           </Route>
         </Switch>
       )}

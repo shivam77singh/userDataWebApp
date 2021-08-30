@@ -1,36 +1,45 @@
 import React, { useState, useEffect } from "react";
+let indexOfFirstPage = 1;
+let indexOfLastPage;
 
 function Pagination({ setPageNumber, totalUsers, currentPage }) {
-  const [displayPage, setDisplayPage] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-  ]);
-  const [leftDisabled, setLeftDisabled] = useState(true);
-  const [rightDisabled, setRightDisabled] = useState(false);
+  const [displayPage, setDisplayPage] = useState([]);
+  const [leftDisabled, setLeftDisabled] = useState(true); //left arrow to disabled or not in the pagination bar
+  const [rightDisabled, setRightDisabled] = useState(false); //right arrow to disabled or not n the pagination bar
+  const totalPage = Math.ceil(totalUsers / 10);
 
-  useEffect(() => {
-    if (displayPage[0] === 1) setLeftDisabled(true);
+  const handleDisplayPagination = () => {
+    let temp = [];
+    for (let i = indexOfFirstPage; i <= indexOfLastPage; i++) {
+      temp.push(i);
+    }
+    if (indexOfFirstPage == 1) setLeftDisabled(true);
     else setLeftDisabled(false);
-    if (displayPage[9] === totalUsers / 10) setRightDisabled(true);
+    if (indexOfLastPage == totalPage) setRightDisabled(true);
     else setRightDisabled(false);
-  }, [displayPage]);
-
-  let pageNumbers = [];
-  for (let i = 1; i <= totalUsers; i++) {
-    pageNumbers.push(i);
-  }
-  //Go to preveious Page number
-
-  const prevPageNumber = () => {
-    const lastPage = displayPage[0] - 1;
-    const startPage = lastPage - 10;
-
-    setDisplayPage(pageNumbers.slice(startPage, lastPage));
+    setDisplayPage(temp);
   };
-  const nextPageNumber = () => {
-    const lastPage = Math.min(totalUsers, displayPage[9] + 10);
-    const startPage = lastPage - 10;
 
-    setDisplayPage(pageNumbers.slice(startPage, lastPage));
+  //SET THE INITIAL VALUES
+  useEffect(() => {
+    indexOfLastPage = Math.min(10, totalPage);
+    indexOfFirstPage = 1;
+    handleDisplayPagination();
+  }, [totalUsers]);
+
+  //Go to preveious Page number range
+  const prevPageNumber = () => {
+    indexOfLastPage = indexOfFirstPage - 1;
+    indexOfFirstPage = Math.max(1, indexOfLastPage - 9);
+
+    handleDisplayPagination();
+  };
+  //Go to next Page number range
+  const nextPageNumber = () => {
+    indexOfFirstPage = indexOfLastPage + 1;
+    indexOfLastPage = Math.min(totalPage, indexOfFirstPage + 9);
+
+    handleDisplayPagination();
   };
 
   return (

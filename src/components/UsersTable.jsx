@@ -1,21 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import User from "./User";
-import Pagination from "./Pagination";
+import Pagination from "./Pagination"; //component used for pagination
 
-function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
-  const [isSort, setIsSort] = useState({
-    id: 1,
-    first_name: 0,
-    last_name: 0,
-    age: 0,
-    email: 0,
-    web: 0,
-  });
-  const [inputValue, setInputValue] = useState("");
-  const [tempUsers, setTempUsers] = useState([]);
+function UsersTable({
+  currentUsers,
+  setPageNumber,
+  totalUsers,
+  currentPage,
+  handleInputChange,
+}) {
+  //<<<======state to store current order of column||| 0--->random order, 1--->inc order, -1-->dec order=======>>>>
+  const [isSort, setIsSort] = useState({});
+  const [inputValue, setInputValue] = useState(""); //input value for search bar
+  const [tempUsers, setTempUsers] = useState([]); // current users in the page
 
-  const handleChange = ({ type }) => {
+  //<<<<==============================SET TO INITIAL STATE WHEN TOTAL USERS CHANGES ACCORDING TO THE SEARCHED VALUE====================>>>>
+  useEffect(() => {
+    setIsSort({
+      id: 1,
+      first_name: 0,
+      last_name: 0,
+      age: 0,
+      email: 0,
+      web: 0,
+    });
+  }, [totalUsers]);
+
+  //<<<<==============================SET TO INITIAL STATE WHEN TOTAL USERS CHANGES ACCORDING TO THE SEARCHED VALUE====================>>>>
+
+  //<<<<===============================================HANDLES WHETHER TO SORT DATA IN INC OR DEC ORDER=================================>>>>
+  const handleSort = ({ type }) => {
     let temp = Object.assign({}, isSort);
     if (temp[type] == 0) temp[type] = 1;
     else if (temp[type] == 1) temp[type] = -1;
@@ -27,6 +42,9 @@ function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
     }
     setIsSort(temp);
   };
+  //<<<<===============================================HANDLES WHETHER TO SORT DATA IN INC OR DEC ORDER=================================>>>>
+
+  //<<<=======================================================HANDLES SORTING OF CURRENT USERS============================================>>>
   const setSortedData = () => {
     const temp = Object.assign([], tempUsers);
     for (let field in isSort) {
@@ -50,7 +68,10 @@ function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
     setSortedData();
   }, [isSort, currentUsers]);
 
-  useEffect(() => {
+  //<<<=======================================================HANDLES SORTING OF CURRENT USERS============================================>>>
+
+  //<<=================================================FILTER DATA=========================================>>>>>>
+  const filterData = () => {
     const temp = currentUsers.filter((user) => {
       return (
         user.first_name.toLowerCase().startsWith(inputValue) ||
@@ -58,7 +79,14 @@ function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
       );
     });
     setTempUsers(temp);
+  };
+
+  useEffect(() => {
+    filterData();
+    handleInputChange(inputValue);
   }, [inputValue, currentUsers]);
+
+  //<<=================================================FILTER DATA===========================================>>>>>>
 
   return (
     <div className="container mt-5">
@@ -71,7 +99,9 @@ function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
           aria-label="Search"
           aria-describedby="search-addon"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value.trim())}
+          onChange={(e) => {
+            setInputValue(e.target.value.trim());
+          }}
         />
         <button type="button" className="btn btn-outline-primary">
           search
@@ -81,75 +111,63 @@ function UsersTable({ currentUsers, setPageNumber, totalUsers, currentPage }) {
         <table className="table table-striped table-hover">
           <thead>
             <tr>
-              {/* <th scope="col">
-                #{" "}
-                <span onClick={() => handleChange({ type: "id" })}>
-                  {isSort.id == 0 ? (
-                    <i className="fas fa-sort"></i>
-                  ) : isSort.id == 1 ? (
-                    <i class="fas fa-sort-up"></i>
-                  ) : (
-                    <i class="fas fa-sort-down"></i>
-                  )}
-                </span>
-              </th> */}
               <th scope="col">
                 First Name{" "}
-                <span onClick={() => handleChange({ type: "first_name" })}>
+                <span onClick={() => handleSort({ type: "first_name" })}>
                   {isSort.first_name == 0 ? (
                     <i className="fas fa-sort"></i>
                   ) : isSort.first_name == 1 ? (
-                    <i class="fas fa-sort-up"></i>
+                    <i className="fas fa-sort-up"></i>
                   ) : (
-                    <i class="fas fa-sort-down"></i>
+                    <i className="fas fa-sort-down"></i>
                   )}
                 </span>
               </th>
               <th scope="col">
                 Last Name{" "}
-                <span onClick={() => handleChange({ type: "last_name" })}>
+                <span onClick={() => handleSort({ type: "last_name" })}>
                   {isSort.last_name == 0 ? (
                     <i className="fas fa-sort"></i>
                   ) : isSort.last_name == 1 ? (
-                    <i class="fas fa-sort-up"></i>
+                    <i className="fas fa-sort-up"></i>
                   ) : (
-                    <i class="fas fa-sort-down"></i>
+                    <i className="fas fa-sort-down"></i>
                   )}
                 </span>
               </th>
               <th scope="col">
                 Age{" "}
-                <span onClick={() => handleChange({ type: "age" })}>
+                <span onClick={() => handleSort({ type: "age" })}>
                   {isSort.age == 0 ? (
                     <i className="fas fa-sort"></i>
                   ) : isSort.age == 1 ? (
-                    <i class="fas fa-sort-up"></i>
+                    <i className="fas fa-sort-up"></i>
                   ) : (
-                    <i class="fas fa-sort-down"></i>
+                    <i className="fas fa-sort-down"></i>
                   )}
                 </span>
               </th>
               <th scope="col">
                 Email{" "}
-                <span onClick={() => handleChange({ type: "email" })}>
+                <span onClick={() => handleSort({ type: "email" })}>
                   {isSort.email == 0 ? (
                     <i className="fas fa-sort"></i>
                   ) : isSort.email == 1 ? (
-                    <i class="fas fa-sort-up"></i>
+                    <i className="fas fa-sort-up"></i>
                   ) : (
-                    <i class="fas fa-sort-down"></i>
+                    <i className="fas fa-sort-down"></i>
                   )}
                 </span>
               </th>
               <th scope="col">
                 Web{" "}
-                <span onClick={() => handleChange({ type: "web" })}>
+                <span onClick={() => handleSort({ type: "web" })}>
                   {isSort.web == 0 ? (
                     <i className="fas fa-sort"></i>
                   ) : isSort.web == 1 ? (
-                    <i class="fas fa-sort-up"></i>
+                    <i className="fas fa-sort-up"></i>
                   ) : (
-                    <i class="fas fa-sort-down"></i>
+                    <i className="fas fa-sort-down"></i>
                   )}
                 </span>
               </th>
