@@ -47,7 +47,7 @@ function App() {
 
   //handle input change
   const handleInputChange = (val) => {
-    setSearchedInputValue(val);
+    setSearchedInputValue(val.toLowerCase());
   };
   useEffect(() => {
     setSearchedUsers(

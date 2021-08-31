@@ -18,6 +18,7 @@ function Pagination({ setPageNumber, totalUsers, currentPage }) {
     if (indexOfLastPage == totalPage) setRightDisabled(true);
     else setRightDisabled(false);
     setDisplayPage(temp);
+    setPageNumber(indexOfFirstPage)
   };
 
   //SET THE INITIAL VALUES

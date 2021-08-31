@@ -74,8 +74,8 @@ function UsersTable({
   const filterData = () => {
     const temp = currentUsers.filter((user) => {
       return (
-        user.first_name.toLowerCase().startsWith(inputValue) ||
-        user.last_name.toLowerCase().startsWith(inputValue)
+        user.first_name.toLowerCase().startsWith(inputValue.toLowerCase()) ||
+        user.last_name.toLowerCase().startsWith(inputValue.toLowerCase())
       );
     });
     setTempUsers(temp);
